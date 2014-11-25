@@ -1,5 +1,6 @@
 
+var fs = require('fs'),
+  filename = process.argv[2];
 
-console.log('Process Argv is ',  process.argv);
-console.log('First argument is ', process.argv[2]);
-console.log('Number of arguments are ', process.argv.length - 2);
+var fileContent = fs.readFileSync(filename).toString();
+console.log("File contents are", fileContent);
