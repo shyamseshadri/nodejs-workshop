@@ -8,7 +8,7 @@ teamCtrl.getTeams(function(err, data) {
     teamCtrl.addMoreData(teams[i], function() {
       count++;
       if (count == teams.length) {
-        console.log('Teams ', teams);
+        console.log('Fully loaded teams ', teams);
       }
     });
   }
