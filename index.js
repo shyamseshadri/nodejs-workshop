@@ -6,12 +6,14 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var app = express();
+var teamRouter = express.Router();
+var loginRouter = express.Router();
 
 app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/public'));
 
-app.post('/api/login', function(req, res) {
+loginRouter.post('/login', function(req, res) {
 
   var username = req.body.username;
   var password = req.body.password;
@@ -24,13 +26,13 @@ app.post('/api/login', function(req, res) {
 
 });
 
-app.get('/api/teams', function(req, res) {
+teamRouter.get('/', function(req, res) {
   teamCtrl.getTeams(function(err, teams) {
     res.send(teams);
   });
 });
 
-app.get('/api/teams/:id', function(req, res) {
+teamRouter.get('/:id', function(req, res) {
   var id = Number(req.params.id);
   teamCtrl.getTeams(function(err, teams) {
     teamCtrl.addMoreData(teams[id - 1], function (err, teamData) {
@@ -39,6 +41,9 @@ app.get('/api/teams/:id', function(req, res) {
     });
   });
 });
+
+app.use('/api', loginRouter);
+app.use('/api/teams', teamRouter);
 
 var server = app.listen(8000, function() {
   console.log('App listening at http://localhost:%s', server.address().port);
