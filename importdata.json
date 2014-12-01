@@ -1,0 +1,6 @@
+[
+  { "id": 1, "name": "Manchester United", "type": "Soccer", "featured": true, "country": "England", "city": "Manchester", "stadium": "Old Trafford", "capacity": 75635},
+  { "id": 2, "name": "Manchester City", "type": "Soccer", "featured": false, "country": "England", "city": "Manchester", "stadium": "City of Manchester Stadium", "capacity": 60000},
+  { "id": 3, "name": "Barcelona", "type": "Soccer", "featured": true, "country": "Spain",  "city": "Barcelona", "stadium": "Camp Nou", "capacity": 99354},
+  { "id": 4, "name": "Real Madrid", "type": "Soccer", "featured": true, "country": "Spain", "city": "Madrid", "stadium": "Santiago Bernabeu Stadium", "capacity": 81044}
+]

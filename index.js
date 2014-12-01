@@ -9,9 +9,10 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var passport = require('passport');
 var csurf = require('csurf');
-
+var mongoose = require('mongoose');
 // Load passport
 require('./auth/passport');
+
 
 
 var app = express();
@@ -80,8 +81,10 @@ app.use(function (err, req, res, next) {
   res.send('session has expired or form tampered with')
 });
 
-var server = app.listen(8000, function() {
-  console.log('App listening at http://localhost:%s', server.address().port);
+mongoose.connect('mongodb://localhost:27017/teams-dev', function() {
+  var server = app.listen(8000, function() {
+    console.log('App listening at http://localhost:%s', server.address().port);
+  });
 });
 
 
