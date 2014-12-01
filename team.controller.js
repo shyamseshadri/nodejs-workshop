@@ -1,15 +1,12 @@
 
-var fs = require('fs');
+
+var Teams = require('./team.model');
 
 module.exports = {
   getTeams: function(cb) {
-    fs.readFile('teams.json', function(err, data) {
-      cb(null, JSON.parse(data));
-    });
+    Teams.find({}, cb);
   },
   addMoreData: function(team, cb) {
-    fs.readFile(team.id + '.json', function(err, data) {
-      cb(null, JSON.parse(data));
-    });
+    Teams.findOne({id: team.id}, cb);
   }
 };
