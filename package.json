@@ -35,5 +35,8 @@
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",
     "response-time": "^2.2.0"
+  },
+  "devDependencies": {
+    "should": "^4.3.0"
   }
 }
