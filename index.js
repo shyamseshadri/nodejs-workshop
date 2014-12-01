@@ -25,26 +25,18 @@ app.post('/api/login', function(req, res) {
 });
 
 app.get('/api/teams', function(req, res) {
-  async.waterfall([function(callback) {
-    teamCtrl.getTeams(callback);
-  }, function(teams, callback) {
-    var functionArray = [];
-    for (var i = 0; i < teams.length; i++) {
-      functionArray.push(function(team) {
-          return function(cb) {
-            teamCtrl.addMoreData(team, cb)
-          };
-        }(teams[i])
-      );
-    }
-    async.parallel(functionArray, function(err, teamsExtraInfo) {
-      for (var i = 0; i < teams.length; i++) {
-        teams[i].more = teamsExtraInfo[i];
-      }
-      callback(null, teams);
+  teamCtrl.getTeams(function(err, teams) {
+    res.send(teams);
+  });
+});
+
+app.get('/api/teams/:id', function(req, res) {
+  var id = Number(req.params.id);
+  teamCtrl.getTeams(function(err, teams) {
+    teamCtrl.addMoreData(teams[id - 1], function (err, teamData) {
+      teams[id - 1].more = teamData;
+      res.send(teams[id - 1]);
     });
-  }], function(err, responses) {
-    res.send(responses);
   });
 });
 
