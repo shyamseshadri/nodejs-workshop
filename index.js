@@ -7,6 +7,11 @@ var morgan = require("morgan");
 var responseTime = require('response-time');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var passport = require('passport');
+
+// Load passport
+require('./auth/passport');
+
 
 var app = express();
 
@@ -21,16 +26,15 @@ app.use(morgan('combined'));
 app.use(responseTime());
 app.use(bodyParser.json());
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.static(__dirname + '/public'));
 
-loginRouter.post('/login', function(req, res) {
-  var username = req.body.username;
-  var password = req.body.password;
-  if (username === 'admin' && password === 'password') {
-    res.send({msg: 'Successful Login'});
-  } else {
-    res.status(400).send({msg: 'FAILED Login'});
-  }
+loginRouter.post('/login', passport.authenticate('local'), function(req, res) {
+
+  res.send({msg: 'Successful Login', username: req.user.username});
+
 });
 
 teamRouter.get('/', function(req, res) {
