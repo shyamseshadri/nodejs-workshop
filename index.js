@@ -3,6 +3,9 @@ var teamCtrl= require('./team.controller');
 
 var express = require('express');
 var bodyParser = require('body-parser');
+var morgan = require("morgan");
+var responseTime = require('response-time');
+
 
 var app = express();
 
@@ -14,6 +17,8 @@ console.log("CONFIG IS ", config);
 var teamRouter = express.Router();
 var loginRouter = express.Router();
 
+app.use(morgan('combined'));
+app.use(responseTime());
 app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/public'));
