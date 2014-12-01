@@ -1,19 +1,14 @@
 
 var fs = require('fs');
 
-var teams = [];
-
 module.exports = {
-  getTeams: function() {
-    if (teams.length === 0) {
-      teams = JSON.parse(fs.readFileSync('teams.json'));
-    }
-    return teams;
+  getTeams: function(cb) {
+    fs.readFile('teams.json', cb);
   },
-  getTeam: function(i) {
-    if (teams.length === 0) {
-      teams = JSON.parse(fs.readFileSync('teams.json'));
-    }
-    return teams[i];
+  addMoreData: function(team, cb) {
+    fs.readFile(team.id + '.json', function(err, data) {
+      team.more = JSON.parse(data);
+      cb();
+    });
   }
 };

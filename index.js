@@ -1,11 +1,22 @@
 
-// Sequential, sync
-var fs = require('fs');
+var teamCtrl= require('./team.controller');
 
-var teams = JSON.parse(fs.readFileSync('teams.json'));
+teamCtrl.getTeams(function(err, data) {
+  var teams = JSON.parse(data);
+  var count = 0;
+  for (var i = 0; i < teams.length; i++) {
+    teamCtrl.addMoreData(teams[i], function() {
+      count++;
+      if (count == teams.length) {
+        console.log('Teams ', teams);
+      }
+    });
+  }
+});
 
-for (var i = 0; i < teams.length; i++) {
-  teams[i].more = JSON.parse(fs.readFileSync(teams[i].id + '.json'));
-}
 
-console.log('Fully loaded teams ', teams);
+
+
+
+
+
