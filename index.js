@@ -1,11 +1,16 @@
 
-var async = require('async');
 var teamCtrl= require('./team.controller');
 
 var express = require('express');
 var bodyParser = require('body-parser');
 
 var app = express();
+
+var config = require('./config');
+
+
+console.log("CONFIG IS ", config);
+
 var teamRouter = express.Router();
 var loginRouter = express.Router();
 
@@ -20,7 +25,7 @@ loginRouter.post('/login', function(req, res) {
   if (username === 'admin' && password === 'password') {
     res.send({msg: 'Successful Login'});
   } else {
-    res.status(4005).send({msg: 'FAILED Login'});
+    res.status(400).send({msg: 'FAILED Login'});
   }
 
 
