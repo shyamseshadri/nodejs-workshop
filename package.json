@@ -37,6 +37,7 @@
     "response-time": "^2.2.0"
   },
   "devDependencies": {
-    "should": "^4.3.0"
+    "should": "^4.3.0",
+    "supertest": "^0.15.0"
   }
 }

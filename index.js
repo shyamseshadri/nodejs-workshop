@@ -81,11 +81,13 @@ app.use(function (err, req, res, next) {
   res.send('session has expired or form tampered with')
 });
 
-mongoose.connect('mongodb://localhost:27017/teams-dev', function() {
+mongoose.connect(config.mongodb, function() {
   var server = app.listen(8000, function() {
     console.log('App listening at http://localhost:%s', server.address().port);
   });
 });
+
+module.exports = app;
 
 
 
